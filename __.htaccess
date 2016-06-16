@@ -1,0 +1,36 @@
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+
+# BEGIN Hide console URL
+
+RewriteRule ^cedzip/?$ /wp-login.php?ksajdfhkjsadf [R,L]
+
+RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$
+RewriteRule ^cedzip/?$ /wp-login.php?ksajdfhkjsadf&redirect_to=/wp-admin/ [R,L]
+
+RewriteRule ^cedzip/?$ /wp-admin/?ksajdfhkjsadf [R,L]
+
+RewriteCond %{SCRIPT_FILENAME} !^(.*)admin-ajax\.php
+RewriteCond %{HTTP_REFERER} !^(.*)do-it-solutions.com/wp-admin
+RewriteCond %{HTTP_REFERER} !^(.*)do-it-solutions.com/wp-login\.php
+RewriteCond %{HTTP_REFERER} !^(.*)do-it-solutions.com/cedzip
+RewriteCond %{QUERY_STRING} !^ksajdfhkjsadf
+RewriteCond %{QUERY_STRING} !^action=logout
+RewriteCond %{QUERY_STRING} !^action=rp
+RewriteCond %{QUERY_STRING} !^action=postpass
+RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$
+RewriteRule ^.*wp-admin/?|^.*wp-login\.php /not_found [R,L]
+
+RewriteCond %{QUERY_STRING} ^loggedout=true
+RewriteRule ^.*$ /wp-login.php?ksajdfhkjsadf [R,L]
+</IfModule>
+# END Hide console URL
+
+# END WordPress
